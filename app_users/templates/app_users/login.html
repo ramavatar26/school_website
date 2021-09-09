@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock %}
+
+{% block image_block %}
+<header>
+  <div id="intro" class="container-fluid">
+    <h2 class="text-center fs-1 fw-bold pb-5" style="padding-top: 150px; color: #800080;">Login</h2>
+    <div class="d-flex justify-content-center py-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="font-size:20px;">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none;">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Login</li>
+        </ol>
+      </nav>
+    </div>
+    <hr class="container" style="color:#800080;">
+    <h4 class="container text-center py-4">Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.</h4>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+  <h2 class="pb-5 fw-bold" style="color: #800080;">Login To Explore</h2>
+  <p>Login here to access study material, time-table, news and announcements.</p>
+  <div class="d-flex justify-content-center py-4">
+    <form method="post">
+      <div class="form-group">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+          <input type="text" name="username" class="form-control" id="floatinguserlogin" placeholder="Username">
+          <label for="floatinguserlogin">Username</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" name="password" class="form-control" id="floatingPasslogin" placeholder="Password">
+          <label for="floatingPasslogin">Password</label>
+        </div>
+        <input type="submit" value="Login" class="btn btn-success btn-lg mt-3">
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

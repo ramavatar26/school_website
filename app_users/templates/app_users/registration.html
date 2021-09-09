@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Register{% endblock %}
+
+{% block image_block %}
+<header>
+  <div id="intro" class="container-fluid">
+    <h2 class="text-center fs-1 fw-bold pb-5" style="padding-top: 150px; color: #800080;">Registration</h2>
+    <div class="d-flex justify-content-center py-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="font-size:20px;">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none;">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Registration</li>
+        </ol>
+      </nav>
+    </div>
+    <hr class="container" style="color:#800080;">
+    <h4 class="container text-center py-4">Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.</h4>
+  </div>
+</header>
+{% endblock %}
+
+
+{% block content %}
+<div class="container text-center mt-5">
+  <h2 class="pb-5 fw-bold" style="color: #800080;">Register Here</h2>
+  <p class="text-center">Register to get access to all the stuff.</p>
+  <div class="d-flex justify-content-center mt-4">
+    {% if registered %}
+      <h1>Thank you for registering</h1>
+    {% else %}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ user_form|crispy }}
+          {{ profile_form|crispy }}
+          <input type="submit" value="Register" class="btn btn-primary btn-lg" style="margin-top:20px; margin-bottom:20px; ">
+        </form>
+    {% endif %}
+  </div>
+</div>
+<!-- <section class="text-center mt-4">
+              <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Register Here</h2>
+
+              <div class="row d-flex justify-content-center mb-4">
+
+                <div class="col-md-8">
+                  <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
+                                    hic
+                                    provident nulla repellat
+                                    facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
+                                    est
+                                    sit pariatur.</p>
+                </div>
+              </div>
+              <div class="row d-flex justify-content-center mb-4">
+
+              </div>
+</section>
+
+  {% if registered %}
+    <h1>Thank you for registering</h1>
+  {% else %}
+      <h3>Fill the form: </h3>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form|crispy }}
+        {{ profile_form|crispy }}
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+        <input type="submit" value="Register" class="btn btn-primary btn-block">
+        </div>
+        </div>
+      </form>
+  {% endif %} -->
+{%endblock%}

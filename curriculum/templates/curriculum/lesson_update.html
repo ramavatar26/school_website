@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Lesson Update {% endblock %}
+
+{% block image_block %}
+<header>
+  <div id="intro" class="container-fluid">
+    <h2 class="text-center fs-1 fw-bold pb-5" style="padding-top: 150px; color: #800080;">Lesson Update</h2>
+    <div class="d-flex justify-content-center py-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="font-size:20px;">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none;">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'curriculum:standard_list' %}" style="text-decoration: none;">Curriculum</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'curriculum:subject_list' slug=lessons.Standard.slug %}" style="text-decoration: none;">{{lessons.Standard.name}}</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'curriculum:lesson_list' standard=lessons.Standard.slug slug=lessons.subject.slug %}" style="text-decoration: none;">{{lessons.subject.name}}</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'curriculum:lesson_detail' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" style="text-decoration: none;">{{lessons.name}}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Lesson Update</li>
+        </ol>
+      </nav>
+    </div>
+    <hr class="container" style="color:#800080;">
+    <h4 class="container text-center py-4">When you educate one person you can change a life, when you educate many you can change the world.</h4>
+  </div>
+</header>
+{% endblock %}
+
+
+{% block content %}
+<div class="continer text-center">
+  <h2 class="text-center mt-5 pb-4 fw-bold" style="color: #800080;">Update {{lessons.name}}</h2>
+  <p class="text-center" style="font-size:18px;">Updating the Lesson will permanently replace the previous PPT, Videos, and Notes with new files.</p>
+  <div class="d-flex justify-content-center mt-5 p-3">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{form|crispy}}
+      <div class="row mt-5 justify-content-center">
+            <div class="col-md-6 mb-4 mr-3">
+                    <input type="submit" value="Update" class="btn btn-lg btn-warning">
+            </div>
+            <div class="col-md-6 mb-4 mr-3">
+                    <a href="{% url 'curriculum:lesson_detail' standard=lessons.Standard.slug subject=lessons.subject.slug slug=lessons.slug %}" class="btn btn-lg btn-danger">Cancel</a>
+            </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+
+{% endblock %}

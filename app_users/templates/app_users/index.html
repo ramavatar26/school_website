@@ -1,0 +1,116 @@
+{% extends 'base.html'  %}
+{% load static %}
+{%block title %}Home page{% endblock%}
+
+{% block image_block%}
+    <header>
+      <div id="intro" class="container-fluid">
+        <h2 class="text-center fs-1 fw-bold pb-5" style="padding-top: 150px; color: #800080;">Modern Public School</h2>
+        <hr style="color:#800080; width:60%; margin: auto;">
+        <h4 class="text-center py-4" style="width:60%; margin: auto;">The beautiful thing about learning is that no one can take it away from you</h4>
+        <div class="text-center py-3">
+          <a href="{% url 'curriculum:standard_list' %}"><button class="btn fw-bold" style="color:#800080; border-color:#800080;">Start Here</button> </a>
+        </div>
+        <div class="text-center pt-3 pb-5">
+          <a href="{% url 'contact' %}"><button class="btn fw-bold" style="color:#800080; border-color:#800080;">Send Feedback</button> </a>
+        </div>
+      </div>
+    </header>
+{%endblock%}
+
+{% block content %}
+   <div class="container" id="chapters">
+      <h2 class="text-center mt-5 pb-4 fw-bold" style="color: #800080;">Dive Into Learning</h2>
+      <p class="text-center" style="font-size:18px;">Teachers open the door, but you must enter by yourself</p>
+      <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+        {% for standard in standards %}
+        <div class="col">
+          <div class="card text-center p-3 border-0 studycards">
+            <h3 class="card-title mb-0" style="color: #800080; padding-top:15px; padding-bottom:0px;">{{standard.name}}</h3>
+            <div class="card-body p-0">
+              {% if user.is_authenticated %}
+              <p class="card-text py-2">{{standard.description|truncatechars:75}}</p>
+              <a href="{% url 'curriculum:subject_list' slug=standard.slug %}"><button class="btn btn-lg btn-info" style="background-color:#00bcd4;">Lets get started</button></a>
+              {%else%}
+              <p class="card-text py-2">Register or login to start learning</p>
+              <a href="{% url 'user_login' %}" class="btn btn-info" style="background-color:#00bcd4; margin-right:20px;">Login</a>
+              <a href="{% url 'register' %}" class="btn btn-primary " style="background-color:#00bcd4;">Register</a>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+   </div>
+      <hr class="container mt-5" style="color:#800080;">
+      <div class="container" id="faculty">
+        <h2 class="text-center mt-5 pb-4 fw-bold" style="color: #800080">Meet Our Faculty</h2>
+        <p class="text-center" style="font-size:18px;">Education is the key to success in life, and teachers make a lasting impact in the lives of their students.</p>
+        <div class="row row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2">
+          {% for teacher in teachers %}
+          <div class="col text-center">
+            <div class="card mb-3 border-0 facultycards">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="{{teacher.profile_Pic.url|default_if_none:'#'}}" class="card-img img-rounded" alt="No image found">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: #800080">{{teacher.user.username}}</h5>
+                    <p class="card-text">{{teacher.bio|truncatechars:75}}</p>
+                    <p class="card-text"><small class="text-muted">Teacher</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+     <hr class="mt-5" style="color:#800080;">
+
+     <div class="container-fluid pb-5" id="events">
+       <h2 class="text-center mt-5 pt-2 pb-4 fw-bold" style="color: #800080">Upcoming Events</h2>
+       <div class="row row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2">
+         <div class="col">
+           <div class="card border-0 bg-dark eventcards">
+             <img src="https://image.freepik.com/free-photo/white-child-room-interior-with-copy-space_43614-805.jpg" class="card-img" alt="No Image found">
+             <div class="card-img-overlay text-center">
+               <h2 class="card-title fw-bold text-center pt-5 pb-3" style="color: #800080">About the Event</h2>
+               <p class="card-text py-4 px-2 fs-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                 {% if user.is_authenticated %}
+                 <a href="#"><button class="btn btn-primary btn-lg" style="background-color:#800080;">Event Details</button></a>
+                 {%else%}
+                 <a id="a" href="{% url 'user_login' %}" class="btn btn-primary" style="background-color:#800080; margin-right:30px">Login</a>
+                 <a id="a" href="{% url 'register' %}" class="btn btn-primary" style="background-color:#800080;">Register</a>
+                 {%endif%}
+             </div>
+           </div>
+         </div>
+         <div class="col">
+           <div class="card border-0 bg-dark eventcards">
+             <img src="https://image.freepik.com/free-photo/white-child-room-interior-with-copy-space_43614-805.jpg" class="card-img" alt="No Image found">
+             <div class="card-img-overlay text-center">
+               <h2 class="card-title fw-bold text-center pt-5 pb-3" style="color: #800080">About the Event</h2>
+               <p class="card-text py-4 px-2 fs-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                 {% if user.is_authenticated %}
+                 <a href="#"><button class="btn btn-primary btn-lg" style="background-color:#800080;">Event Details</button></a>
+                 {%else%}
+                 <a href="{% url 'user_login' %}" class="btn btn-primary" style="background-color:#800080; margin-right:30px">Login</a>
+                 <a href="{% url 'register' %}" class="btn btn-primary" style="background-color:#800080;">Register</a>
+                 {%endif%}
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="text-center pt-5 pb-2">
+         {% if user.is_authenticated %}
+         <a href="#"><button class="btn btn-primary btn-lg" style="background-color:#800080;">All Events</button></a>
+         {%else%}
+         <p class="text-white fs-5">Login or Register to see All Events</p>
+         <a href="{% url 'user_login' %}" class="btn btn-lg btn-primary" style="background-color:#800080; margin-right:30px">Login</a>
+         <a href="{% url 'register' %}" class="btn btn-lg btn-primary" style="background-color:#800080;">Register</a>
+         {%endif%}
+       </div>
+     </div>
+{%endblock%}

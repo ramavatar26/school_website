@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Standards {% endblock %}
+
+
+{% block image_block %}
+<header>
+  <div id="intro" class="container-fluid">
+    <h2 class="text-center fs-1 fw-bold pb-5" style="padding-top: 150px; color: #800080;">Standards</h2>
+    <div class="d-flex justify-content-center py-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="font-size:20px;">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}" style="text-decoration: none;">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'curriculum:standard_list' %}" style="text-decoration: none;">Curriculum</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Standards</li>
+        </ol>
+      </nav>
+    </div>
+    <hr class="container" style="color:#800080;">
+    <h4 class="container text-center py-4">When you educate one person you can change a life, when you educate many you can change the world.</h4>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container pb-5" id="chapters">
+   <h2 class="text-center mt-5 pb-4 fw-bold" style="color: #800080;">Dive Into Learning</h2>
+   <p class="text-center" style="font-size:18px;">Teachers open the door, but you must enter by yourself</p>
+   <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+     {% for standard in standards %}
+     <div class="col">
+       <div class="card text-center p-3 border-0 studycards">
+         <h3 class="card-title mb-0" style="color: #800080; padding-top:15px; padding-bottom:0px;">{{standard.name}}</h3>
+         <div class="card-body p-0">
+           {% if user.is_authenticated %}
+           <p class="card-text py-2">{{standard.description|truncatechars:75}}</p>
+           <a href="{% url 'curriculum:subject_list' slug=standard.slug %}"><button class="btn btn-lg btn-info" style="background-color:#00bcd4;">Lets get started</button></a>
+           {%else%}
+           <p class="card-text py-2">Register or login to start learning</p>
+           <a href="{% url 'user_login' %}" class="btn btn-info" style="background-color:#00bcd4; margin-right:20px;">Login</a>
+           <a href="{% url 'register' %}" class="btn btn-primary " style="background-color:#00bcd4;">Register</a>
+           {%endif%}
+         </div>
+       </div>
+     </div>
+     {% endfor %}
+   </div>
+</div>
+{%endblock%}
